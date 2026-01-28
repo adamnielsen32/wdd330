@@ -237,3 +237,15 @@ footer {
   margin-top: 1em;
 }
 
+.cart-footer {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-top: 2px solid #ddd;
+  text-align: right;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.hide {
+  display: none;
+}

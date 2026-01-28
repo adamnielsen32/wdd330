@@ -31,3 +31,38 @@ function cartItemTemplate(item) {
 }
 
 renderCartContents();
+
+
+function getCartItems() {
+  return JSON.parse(localStorage.getItem("so-cart")) || [];
+}
+
+function calculateCartTotal(cartItems) {
+  return cartItems.reduce((total, item) => {
+    return total + Number(item.FinalPrice);
+  }, 0);
+}
+
+function updateCartTotal() {
+  const cartItems = getCartItems();
+  const cartFooter = document.querySelector(".cart-footer");
+  const cartTotalElement = document.querySelector(".cart-total");
+
+  // Empty cart → hide footer
+  if (cartItems.length === 0) {
+    cartFooter.classList.add("hide");
+    return;
+  }
+
+  // Cart has items → show footer
+  cartFooter.classList.remove("hide");
+
+  const total = calculateCartTotal(cartItems);
+  cartTotalElement.textContent = `Total: $${total.toFixed(2)}`;
+}
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Your existing cart rendering logic here
+  updateCartTotal();
+});
