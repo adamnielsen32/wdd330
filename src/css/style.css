@@ -287,4 +287,18 @@ bounce {
   animation: smooth-bounce 1s ease-in-out;
 }
 
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: red;
+  color: white;
+  font-size: 0.8em;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
+  line-height: 1;
+  pointer-events: none;
+}
+
 /* end cart animation */
