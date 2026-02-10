@@ -267,3 +267,46 @@ bounce {
 }
 
 /* end cart animation */
+
+/* Search Bar Styles */
+.search-container {
+  display: flex;
+  align-items: center;
+  margin: 8px 16px 2px 25px;
+  width: auto;
+}
+
+.search-container form {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.search-bar {
+  padding: 6px 10px;
+  border: 1px solid #000;
+  border-right: none;
+  border-radius: 3px 0 0 3px;
+  font-size: 17px;
+  margin: 0;
+  flex: 1 1 auto;
+}
+
+.search-button {
+  background-color: var(--light-grey);
+  border: 1px solid #000;
+  border-left: none;
+  border-radius: 0 3px 3px 0;
+  padding: 6px 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.search-button img {
+  width: 18px;
+  height: 20px;
+  display: block;
+  background:none;
+}

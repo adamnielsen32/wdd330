@@ -2,5 +2,5 @@ import productList from "./productList.mjs";
 import { loadHeaderFooter } from "./utils.mjs";
 
 loadHeaderFooter();
-
-productList(".product-list", "tents");
+const searchTerm = new URLSearchParams(window.location.search).get("search");
+productList(".product-list", "tents", searchTerm);

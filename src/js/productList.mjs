@@ -15,13 +15,12 @@ function productCardTemplate(product) {
             </li>`;
 }
 
-export default async function productList(selector, category) {
+export default async function productList(selector, category, searchTerm = null) {
     const container = document.querySelector(selector);
 
-    const products = await getData(category);
-
+    const products = await getData(category, searchTerm);
+    
     products.map(product => renderProducts(productCardTemplate, product, container));
-
 }
 
 function renderProducts(template, product, container) {
