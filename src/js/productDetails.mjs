@@ -5,12 +5,13 @@ export default async function productDetails(productId) {
     product = await findProductById(productId);
     renderProductDetails(product);
     document.getElementById("addToCart").addEventListener("click", () => addProductToCart(product));
+    return product;
 }
 
 function addProductToCart(product) {
   const cartItems = getLocalStorage("so-cart") || [];
   cartItems.push(product);
-  console.log("Added cartItems:", cartItems);
+  //console.log("Added cartItems:", cartItems);
   setLocalStorage("so-cart", cartItems);
   let cart = document.querySelector(".cart");
   cart.classList.add("cart--actived");
