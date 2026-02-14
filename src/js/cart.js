@@ -1,4 +1,7 @@
 import { getLocalStorage } from "./utils.mjs";
+import { loadHeaderFooter } from "./utils.mjs";
+
+loadHeaderFooter();
 
 async function renderCartContents() {
   const cartItems = await getLocalStorage("so-cart") || [];
@@ -13,9 +16,8 @@ async function renderCartContents() {
     updateCartTotal();
     return;
   }
-
-  const validItems = cartItems.filter(item => item.Name && item.Colors);
-  const htmlItems = validItems.map(cartItemTemplate);
+  const validItems = cartItems.filter(item => item.Id)
+  const htmlItems = validItems.map((item) => cartItemTemplate(item));
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
 
   updateCartTotal();
