@@ -7,8 +7,14 @@ function convertToJson(res) {
   }
 }
 
-export async function getData(category) {
-  const response = await fetch(baseURL + `products/search/${category}`);
+export async function getData(category, searchTerm = null) {
+  let url = baseURL + `products/search/${category}`;
+  console.log(baseURL);
+  if (searchTerm) {
+    url += `?search=${searchTerm}`;
+  }
+  const response = await fetch(url);
+  
   const data = await convertToJson(response);
   return data.Result;
 }

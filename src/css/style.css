@@ -322,3 +322,19 @@ bounce {
   display: block;
   background:none;
 }
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(100px, 1fr));
+  gap: 16px;
+  text-align: center;
+}
+
+.product-grid a {
+  text-decoration: none;
+  color: var(--dark-grey);
+}
+
+.product-grid li {
+  list-style-type: none;
+}
