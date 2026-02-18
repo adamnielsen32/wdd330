@@ -111,6 +111,22 @@ button {
 }
 
 /* End cart icon styles */
+ /* Cart counter / superscript badge */
+.cart-count {
+  position: absolute;      /* Position relative to the cart container */
+  top: 0;                  /* Top corner of the icon */
+  right: 0;                /* Right corner of the icon */
+  background-color: var(--primary-color); /* Match your primary color */
+  color: white;            /* Number in white */
+  font-size: 0.7em;        /* Small font size for the badge */
+  font-weight: bold;       /* Make number bold */
+  padding: 2px 6px;        /* Small padding around number */
+  border-radius: 50%;      /* Make it a circle */
+  transform: translate(50%, -50%); /* Slightly move outside the icon */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .mission {
   padding: 0 0.5em;

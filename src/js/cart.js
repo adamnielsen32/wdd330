@@ -64,8 +64,23 @@ function updateCartTotal() {
   cartTotalElement.textContent = `Total: $${total.toFixed(2)}`;
 }
 
+// --------- CART COUNTER FUNCTION ---------
+function updateCartCounter() {
+  const cartItems = getCartItems();
+  const counter = document.getElementById("cart-count"); // the span in your header
+  if (!counter) return;
+
+  const totalQuantity = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
+  counter.textContent = totalQuantity;
+
+  counter.style.display = totalQuantity === 0 ? "none" : "flex";
+}
+
+// ----------------------------------------
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Your existing cart rendering logic here
+  // Your existing cart rendering logic
+  renderCartContents();
   updateCartTotal();
+  updateCartCounter(); // ← update cart icon counter
 });
