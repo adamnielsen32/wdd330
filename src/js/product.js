@@ -1,5 +1,5 @@
 import { getParam } from "./utils.mjs";
-import { getData } from "./productData.mjs";
+import { getProductByCategory } from "./externalServices.mjs";
 import productDetails from "./productDetails.mjs";
 import { loadHeaderFooter } from "./utils.mjs";
 
@@ -23,7 +23,7 @@ async function renderBreadcrumb(product) {
   let category = "";
   
   for (const cat of categories) {
-    const products = await getData(cat);
+    const products = await getProductByCategory(cat);
     if (products.find(p => p.Id === product.Id)) {
       category = cat.charAt(0).toUpperCase() + cat.slice(1).replace("-", " ");
       break;

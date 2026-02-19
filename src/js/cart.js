@@ -1,5 +1,5 @@
 import { getLocalStorage } from "./utils.mjs";
-import { loadHeaderFooter } from "./utils.mjs";
+import { loadHeaderFooter, calculateCartTotal } from "./utils.mjs";
 
 loadHeaderFooter();
 
@@ -47,15 +47,10 @@ function cartItemTemplate(item) {
 renderCartContents();
 
 
-function getCartItems() {
+export function getCartItems() {
   return JSON.parse(localStorage.getItem("so-cart")) || [];
 }
 
-function calculateCartTotal(cartItems) {
-  return cartItems.reduce((total, item) => {
-    return total + Number(item.FinalPrice);
-  }, 0);
-}
 
 function updateCartTotal() {
   const cartItems = getCartItems();

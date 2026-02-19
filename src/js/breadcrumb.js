@@ -1,4 +1,4 @@
-import { getData } from "./productData.mjs";
+import { getProductByCategory } from "./externalServices.mjs";
 
 const breadcrumb = document.getElementById("breadcrumb");
 
@@ -11,7 +11,7 @@ if (window.location.pathname.includes("index.html") && !window.location.pathname
 export async function initBreadcrumb(category) {
   if (!breadcrumb) return;
   
-  const products = await getData(category);
+  const products = await getProductByCategory(category);
   const itemCount = products.length;
   
   breadcrumb.innerHTML = `<span>${category.charAt(0).toUpperCase() + category.slice(1)} -> (${itemCount} items)</span>`;
