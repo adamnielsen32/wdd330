@@ -1,4 +1,4 @@
-import {getData} from "./productData.mjs";
+import {getProductByCategory} from "./externalServices.mjs";
 
 
 function productCardTemplate(product) {
@@ -18,8 +18,8 @@ function productCardTemplate(product) {
 export default async function productList(selector, category, searchTerm = null) {
     const container = document.querySelector(selector);
 
-    const products = await getData(category, searchTerm);
-    
+    const products = await getProductByCategory(category, searchTerm);
+   console.log(products); 
     products.map(product => renderProducts(productCardTemplate, product, container));
 }
 

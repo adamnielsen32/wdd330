@@ -64,6 +64,13 @@ function loadTemplate(path){
   };
 }
 
+export function calculateCartTotal(cartItems) {
+  return cartItems.reduce((total, item) => {
+    return total + Number(item.FinalPrice);
+  }, 0);
+}
+
+
 export async function loadHeaderFooter() {
   const headerTemplateFn = loadTemplate("/partials/header.html");
   const footerTemplateFn = loadTemplate("/partials/footer.html");
