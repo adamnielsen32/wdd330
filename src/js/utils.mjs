@@ -25,9 +25,10 @@ export function setClick(selector, callback) {
 export function getParam(param) {
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
-const product = urlParams.get('product');
+const product = urlParams.get(param);
 return product;
 }
+
 export function renderListWithTemplate(
   templateFn,
   parentElement,
@@ -63,6 +64,13 @@ function loadTemplate(path){
     }
   };
 }
+
+export function calculateCartTotal(cartItems) {
+  return cartItems.reduce((total, item) => {
+    return total + Number(item.FinalPrice);
+  }, 0);
+}
+
 
 export async function loadHeaderFooter() {
   const headerTemplateFn = loadTemplate("/partials/header.html");

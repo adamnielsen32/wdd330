@@ -1,4 +1,4 @@
-import { findProductById } from "./productData.mjs";
+import { findProductById } from "./externalServices.mjs";
 import { setLocalStorage, getLocalStorage } from "./utils.mjs";
 
 let product = {};
@@ -20,7 +20,7 @@ export default async function productDetails(productId) {
 
   // Normal behavior
   renderProductDetails(product);
-
+console.log("Product details loaded:", product);
   const addToCartButton = document.getElementById("addToCart");
   if (addToCartButton) {
     addToCartButton.addEventListener("click", () =>
@@ -31,10 +31,25 @@ export default async function productDetails(productId) {
 
 function addProductToCart(product) {
   const cartItems = getLocalStorage("so-cart") || [];
-  cartItems.push(product);
-  console.log("Added cartItems:", cartItems);
-  setLocalStorage("so-cart", cartItems);
+  const exists = cartItems.some(item => item.Id === product.Id);
+  if (!exists) {
+    product.Quantity = 1;
+    cartItems.push(product);
+    console.log("Added cartItems:", cartItems);
+    setLocalStorage("so-cart", cartItems);
+  } else {
+    console.log("Product already in cart:", product);
+    for (const item of cartItems) {
+      if (item.Id === product.Id) {
+        item.Quantity =item.Quantity? (item.Quantity += 1) : 2;
+        break;
+      }
+    }
+    setLocalStorage("so-cart", cartItems);
+      
+    };
 
+    //Cart bag animation after you add to cart
   let cart = document.querySelector(".cart");
   if (cart) {
     cart.classList.add("cart--actived");
@@ -55,7 +70,7 @@ function renderProductDetails(product) {
     product.NameWithoutBrand;
 
   const image = document.getElementById("productImage");
-  image.src = product.Image;
+  image.src = product.Images.PrimaryLarge;
   image.alt = product.Name;
 
   const priceElement = document.getElementById("productPrice");

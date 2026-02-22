@@ -2,8 +2,7 @@ import productList from "./productList.mjs";
 import { getParam, loadHeaderFooter } from "./utils.mjs";
  
 loadHeaderFooter();
-const category = getParam("category");
-productList(".product-list", category);
+const category = getParam("category")
 // Render top products list
-const searchTerm = new URLSearchParams(window.location.search).get("search");
-productList(".product-list", "tents", searchTerm);
+const searchTerm = getParam("search");
+productList(".product-list", category, searchTerm);

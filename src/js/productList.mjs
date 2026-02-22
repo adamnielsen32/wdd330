@@ -1,4 +1,4 @@
-import { getData } from "./productData.mjs";
+import {getProductByCategory} from "./externalServices.mjs";
 
 function calculateDiscount(original, final) {
   return Math.round(((original - final) / original) * 100);
@@ -43,11 +43,9 @@ export default async function productList(
 ) {
   const container = document.querySelector(selector);
 
-  const products = await getData(category, searchTerm);
-
-  products.map((product) =>
-    renderProducts(productCardTemplate, product, container)
-  );
+    const products = await getProductByCategory(category, searchTerm);
+   console.log(products); 
+    products.map(product => renderProducts(productCardTemplate, product, container));
 }
 
 function renderProducts(template, product, container) {
