@@ -2,9 +2,11 @@ import {getProductByCategory} from "./externalServices.mjs";
 
 
 function productCardTemplate(product) {
+    let url = baseURL + `products/${product.Id}`;
+    console.log(product.Images)
     return `
     <li class="product-card">
-            <a href="product_pages/index.html?product=${product.Id}">
+            <a href="/product_pages/index.html?product=${product.Id}">
             <img
               src="${product.Images.PrimaryMedium}"
               alt="${product.Name}"

@@ -9,7 +9,6 @@ function convertToJson(res) {
 
 export async function getProductByCategory(category, searchTerm = null) {
   let url = baseURL + `products/search/${category}`;
-  console.log(baseURL);
   if (searchTerm) {
     url += `?search=${searchTerm}`;
   }
