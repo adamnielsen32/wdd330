@@ -33,13 +33,23 @@ function addProductToCart(product) {
   const cartItems = getLocalStorage("so-cart") || [];
   const exists = cartItems.some(item => item.Id === product.Id);
   if (!exists) {
+    product.Quantity = 1;
     cartItems.push(product);
     console.log("Added cartItems:", cartItems);
     setLocalStorage("so-cart", cartItems);
   } else {
     console.log("Product already in cart:", product);
-  }
+    for (const item of cartItems) {
+      if (item.Id === product.Id) {
+        item.Quantity =item.Quantity? (item.Quantity += 1) : 2;
+        break;
+      }
+    }
+    setLocalStorage("so-cart", cartItems);
+      
+    };
 
+    //Cart bag animation after you add to cart
   let cart = document.querySelector(".cart");
   if (cart) {
     cart.classList.add("cart--actived");

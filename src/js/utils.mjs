@@ -28,6 +28,7 @@ const urlParams = new URLSearchParams(queryString);
 const product = urlParams.get(param);
 return product;
 }
+
 export function renderListWithTemplate(
   templateFn,
   parentElement,

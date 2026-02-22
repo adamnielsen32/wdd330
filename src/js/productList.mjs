@@ -2,7 +2,6 @@ import {getProductByCategory} from "./externalServices.mjs";
 
 
 function productCardTemplate(product) {
-    let url = baseURL + `products/${product.Id}`;
     console.log(product.Images)
     return `
     <li class="product-card">
