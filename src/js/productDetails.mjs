@@ -66,8 +66,7 @@ function addProductToCart(product) {
 
 function renderProductDetails(product) {
   document.getElementById("productName").textContent = product.Name;
-  document.getElementById("productNameWithoutBrand").textContent =
-    product.NameWithoutBrand;
+  document.getElementById("productNameWithoutBrand").textContent = product.NameWithoutBrand;
 
   const image = document.getElementById("productImage");
   image.src = product.Images.PrimaryLarge;
@@ -98,12 +97,40 @@ function renderProductDetails(product) {
     priceElement.textContent = `$${product.ListPrice.toFixed(2)}`;
   }
 
-  document.getElementById(
-    "productColor"
-  ).textContent = `Color: ${product.Colors[0].ColorName}`;
+  // Color swatch logic
+  const colorContainer = document.getElementById("productColor");
+  if (product.Colors && product.Colors.length > 1) {
+    colorContainer.innerHTML = "Choose a color:";
+    const swatchList = document.createElement("div");
+    swatchList.className = "color-swatches";
+    product.Colors.forEach((color, idx) => {
+      const swatch = document.createElement("img");
+      swatch.src = color.SwatchImage;
+      swatch.alt = color.ColorName;
+      swatch.className = "color-swatch";
+      swatch.style.border = idx === 0 ? "2px solid #333" : "1px solid #ccc";
+      swatch.style.cursor = "pointer";
+      swatch.dataset.index = idx;
+      swatch.addEventListener("click", () => {
+        // Highlight selected swatch
+        Array.from(swatchList.children).forEach(s => s.style.border = "1px solid #ccc");
+        swatch.style.border = "2px solid #333";
+        // Update color name
+        colorContainer.innerHTML = `Color: ${color.ColorName}`;
+        colorContainer.appendChild(swatchList);
+        // Update product image if available
+        if (color.Image) {
+          image.src = color.Image;
+        }
+      });
+      swatchList.appendChild(swatch);
+    });
+    colorContainer.appendChild(swatchList);
+  } else {
+    colorContainer.textContent = `Color: ${product.Colors[0].ColorName}`;
+  }
 
-  document.getElementById("productDescription").innerHTML =
-    product.DescriptionHtmlSimple;
+  document.getElementById("productDescription").innerHTML = product.DescriptionHtmlSimple;
 }
 
 function renderProductNotFound() {
