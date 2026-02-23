@@ -75,12 +75,18 @@ function renderProductDetails(product) {
 
   const priceElement = document.getElementById("productPrice");
 
-  // ✅ Discount logic (UI only)
+  // Discount flag logic
+  let discountFlag = "";
   if (
     product.FinalPrice &&
     product.FinalPrice < product.ListPrice
   ) {
+    const discountPercent = Math.round(
+      ((product.ListPrice - product.FinalPrice) / product.ListPrice) * 100
+    );
+    discountFlag = `<span class="discount-badge" style="background: #ffe0e0; color: #b00; font-weight: bold; padding: 0.2em 0.5em; border-radius: 4px; margin-bottom: 0.5em; display: inline-block;">${discountPercent}% OFF</span><br/>`;
     priceElement.innerHTML = `
+      ${discountFlag}
       <span style="text-decoration: line-through; color: #777;">
         $${product.ListPrice.toFixed(2)}
       </span>

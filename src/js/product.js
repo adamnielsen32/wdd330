@@ -34,6 +34,14 @@ async function renderBreadcrumb(product) {
   breadcrumb.classList.remove("hidden");
 }
 
+// --- SORT DROPDOWN HANDLER ---
+const sortSelect = document.querySelector("#sort");
+
+if (sortSelect) {
+  sortSelect.addEventListener("change", () => {
+    console.log("Selected sort:", sortSelect.value);
+  });
+}
 
 // // add to cart button event handler
 // async function addToCartHandler(e) {

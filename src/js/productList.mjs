@@ -39,16 +39,38 @@ function productCardTemplate(product) {
 export default async function productList(
   selector,
   category,
-  searchTerm = null
+  searchTerm = null,
+  sort = "name-asc"
 ) {
   const container = document.querySelector(selector);
-
+  container.innerHTML = "<li class=\"loading\">Loading products...</li>";
+  try {
     const products = await getProductByCategory(category, searchTerm);
-   console.log(products); 
-    products.map(product => renderProducts(productCardTemplate, product, container));
+    // console.log(products);
+
+    if (!products || !products.length) {
+      container.innerHTML = "<li class=\"error\">No products found.</li>";
+      return;
+    }
+
+    // apply sorting
+    let sorted = [...products];
+    if (sort === "name-asc") {
+      sorted.sort((a, b) =>
+        (a.NameWithoutBrand || "").localeCompare(b.NameWithoutBrand || "")
+      );
+    } else if (sort === "price-asc") {
+      sorted.sort((a, b) => (a.ListPrice || 0) - (b.ListPrice || 0));
+    } else if (sort === "price-desc") {
+      sorted.sort((a, b) => (b.ListPrice || 0) - (a.ListPrice || 0));
+    }
+
+    // render
+    container.innerHTML = sorted.map((p) => productCardTemplate(p)).join("");
+  } catch (err) {
+    container.innerHTML = `<li class="error">Error loading products. Please try again.</li>`;
+    // console.error("Product list error:", err);
+  }
 }
 
-function renderProducts(template, product, container) {
-  const html = template(product);
-  container.innerHTML += html;
-}
+
