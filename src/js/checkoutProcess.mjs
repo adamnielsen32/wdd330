@@ -1,5 +1,6 @@
-import { getLocalStorage, calculateCartTotal } from "./utils.mjs";
+import { getLocalStorage, calculateCartTotal, setLocalStorage } from "./utils.mjs";
 import { checkout } from "./externalServices.mjs"
+import { alertMessage } from "./utils.mjs";
 
 function formDataToJSON(formElement) {
   const formData = new FormData(formElement),
@@ -68,11 +69,20 @@ const checkoutProcess = {
     json.tax = this.tax;
     json.shipping = this.shipping;
     json.items = packageItems(this.list);
-    console.log(json);
+    console.log("json: Line 71", json);
     try {
+      // "checkout" already converts the Response to JSON and throws on bad status,
+      // so `res` is the parsed body – it does not have an `ok` property.
       const res = await checkout(json);
-      console.log(res);
+      console.log("Checkout response:", res);
+
+      // if we reached here the request succeeded; you can inspect the body for
+      // whatever your API returns (e.g. res.Result or res.success) and act on it.
+      setLocalStorage("so-cart", []);
+      location.assign("/checkout/success.html");
+      
     } catch (err) {
+      alertMessage("Checkout failed. Please try again.", true, 3000)
       console.log(err);
     }
   },

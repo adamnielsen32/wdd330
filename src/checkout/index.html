@@ -24,31 +24,31 @@
       <form id="checkout-form">
 
   <label>First Name</label>
-  <input type="text" name="fname" required aria-label="First Name">
+  <input type="text" name="fname" required aria-label="First Name" pattern="[^0-9]*" minlength="1" maxlength="30">
 
   <label>Last Name</label>
-  <input type="text" name="lname" required aria-label="Last Name">
+  <input type="text" name="lname" required aria-label="Last Name" pattern="[^0-9]*" minlength="1" maxlength="30">
 
   <label>Street</label>
   <input type="text" name="street" required aria-label="Street">
 
   <label>City</label>
-  <input type="text" name="city" required aria-label="City">
+  <input type="text" name="city" required aria-label="City" pattern="[^0-9]*">
 
   <label>State</label>
-  <input type="text" name="state" required aria-label="State">
+  <input type="text" name="state" required aria-label="State" minlength="2" maxlength="2" pattern="[^0-9]*">
 
   <label>Zip</label>
-  <input type="text" name="zip" required aria-label="Zip">
+  <input type="number" name="zip" required aria-label="Zip" minlength="5" maxlength="5" >
 
   <label>Card Number</label>
-  <input type="text" name="cardNumber" required aria-label="Card Number">
+  <input type="number" name="cardNumber" required aria-label="Card Number" minlength="13" maxlength="19">
 
   <label>Expiration</label>
   <input type="text" name="expiration" required aria-label="Expiration">
 
   <label>Security Code</label>
-  <input type="text" name="code" required aria-label="Security Code">
+  <input type="number" name="code" required aria-label="Security Code" minlength="3" maxlength="4">
 
   <button type="submit">Submit Order</button>
 

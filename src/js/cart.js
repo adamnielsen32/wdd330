@@ -30,7 +30,7 @@ function cartItemTemplate(item) {
       <span class="remove-item" data-id="${item.Id}">✕</span>
 
       <a href="#" class="cart-card__image">
-        <img src="${item.Image}" alt="${item.Name}" />
+        <img src="${item.Images.PrimaryMedium}" alt="${item.Name}" />
       </a>
 
       <a href="#">
