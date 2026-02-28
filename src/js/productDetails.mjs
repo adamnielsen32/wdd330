@@ -73,6 +73,48 @@ function renderProductDetails(product) {
   image.src = product.Images.PrimaryLarge;
   image.alt = product.Name;
 
+  // Image carousel logic
+  const mainImageContainer = image.parentElement;
+  // Remove any previous carousel
+  const oldCarousel = document.getElementById("image-carousel");
+  if (oldCarousel) oldCarousel.remove();
+
+  // Gather all images (main + extras)
+  let allImages = [
+    { src: product.Images.PrimaryLarge, alt: product.Name }
+  ];
+  if (product.Images.ExtraImages && Array.isArray(product.Images.ExtraImages)) {
+    allImages = allImages.concat(
+      product.Images.ExtraImages.map((img, idx) => ({ src: img, alt: product.Name + " extra " + (idx + 1) }))
+    );
+  }
+
+  if (allImages.length > 1 && mainImageContainer) {
+    const carousel = document.createElement("div");
+    carousel.id = "image-carousel";
+    carousel.style.display = "flex";
+    carousel.style.gap = "0.5em";
+    carousel.style.margin = "0.5em 0";
+    allImages.forEach((imgObj, idx) => {
+      const thumb = document.createElement("img");
+      thumb.src = imgObj.src;
+      thumb.alt = imgObj.alt;
+      thumb.style.width = "48px";
+      thumb.style.height = "48px";
+      thumb.style.objectFit = "cover";
+      thumb.style.border = idx === 0 ? "2px solid #333" : "1px solid #ccc";
+      thumb.style.cursor = "pointer";
+      thumb.addEventListener("click", () => {
+        image.src = imgObj.src;
+        image.alt = imgObj.alt;
+        Array.from(carousel.children).forEach(t => t.style.border = "1px solid #ccc");
+        thumb.style.border = "2px solid #333";
+      });
+      carousel.appendChild(thumb);
+    });
+    mainImageContainer.insertBefore(carousel, image.nextSibling);
+  }
+
   const priceElement = document.getElementById("productPrice");
 
   // Discount flag logic
