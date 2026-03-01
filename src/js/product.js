@@ -6,12 +6,25 @@ import { loadHeaderFooter } from "./utils.mjs";
 loadHeaderFooter();
 
 const productId = getParam("product");
+const commentData = getParam("data");
 
 init();
 
 async function init() {
+  if (commentData) {
+  logCommentData(commentData);
+  }
   const product = await productDetails(productId);
   await renderBreadcrumb(product);
+}
+
+function logCommentData(data) {
+  try {
+    const comment = JSON.parse(decodeURIComponent(data));
+    console.log("Received comment data:", comment);
+  } catch (error) {
+    console.error("Failed to parse comment data:", error);
+  }
 }
 
 async function renderBreadcrumb(product) {
@@ -42,6 +55,25 @@ if (sortSelect) {
     console.log("Selected sort:", sortSelect.value);
   });
 }
+
+// --- COMMENT FORM HANDLER ---
+document.getElementById("productReviewForm").addEventListener('submit', (event) => {
+  event.preventDefault();
+  const formData = new FormData(event.target);
+  const dataObject = Object.fromEntries(formData.entries());
+  
+  // Load existing comments from localStorage
+  let comments = JSON.parse(localStorage.getItem("so-comments") || "[]");
+  comments.push(dataObject);
+  
+  // Save back to localStorage
+  localStorage.setItem("so-comments", JSON.stringify(comments));
+  console.log("Comment saved:", dataObject);
+  
+  // Clear the form
+  event.target.reset();
+  window.location.reload()
+});
 
 // // add to cart button event handler
 // async function addToCartHandler(e) {

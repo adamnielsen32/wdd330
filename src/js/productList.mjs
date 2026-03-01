@@ -4,6 +4,8 @@ function calculateDiscount(original, final) {
   return Math.round(((original - final) / original) * 100);
 }
 
+
+
 function productCardTemplate(product) {
   return `
     <li class="product-card">

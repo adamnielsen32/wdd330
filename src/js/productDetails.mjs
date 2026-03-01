@@ -1,4 +1,4 @@
-import { findProductById } from "./externalServices.mjs";
+import { findProductById, getCommentsByProductId } from "./externalServices.mjs";
 import { setLocalStorage, getLocalStorage } from "./utils.mjs";
 
 let product = {};
@@ -27,6 +27,20 @@ console.log("Product details loaded:", product);
       addProductToCart(product)
     );
   }
+}
+
+function renderComments(comments) {
+  if (!comments || !comments.length) {
+    return "<p>No comments yet.</p>";
+  }
+  return comments.map(c => `
+    <div class="comment">
+      <p>${c.comment}</p>
+      <p>Rating: ${c.rating}/5</p>
+      <p><small>${new Date(c.date).toLocaleDateString()}</small></p>
+    </div>
+    <hr/>
+  `).join("");
 }
 
 function addProductToCart(product) {
@@ -64,9 +78,13 @@ function addProductToCart(product) {
   }
 }
 
-function renderProductDetails(product) {
+async function renderProductDetails(product) {
   document.getElementById("productName").textContent = product.Name;
   document.getElementById("productNameWithoutBrand").textContent = product.NameWithoutBrand;
+  document.getElementById("productId").value = product.Id;
+  document.getElementById("date").value = new Date().toLocaleDateString();
+  const commentsList = document.getElementById("commentsList");
+
 
   const image = document.getElementById("productImage");
   image.src = product.Images.PrimaryLarge;
@@ -173,6 +191,13 @@ function renderProductDetails(product) {
   }
 
   document.getElementById("productDescription").innerHTML = product.DescriptionHtmlSimple;
+
+  // Render comments if available
+  const comments = await getCommentsByProductId(product.Id);
+  if (comments) {
+    commentsList.innerHTML = renderComments(comments);
+  }
+
 }
 
 function renderProductNotFound() {

@@ -73,11 +73,32 @@
 
         <p class="product__description" id="productDescription">
         </p>
-
+      <p class="product-card__rating"></p>
         <div class="product-detail__add">
           <button id="addToCart" data-id="">Add to Cart</button>
         </div>
       </section>
+      <form class="product-review-form" id="productReviewForm">
+        <h3>Leave a Review</h3>
+        <input type="text" hidden name="productId" id="productId"/>
+        <h4 for="rating">Rating:</h4>
+        <select name="rating" id="rating">
+          <option value="5">5</option>
+          <option value="4">4</option>
+          <option value="3">3</option>
+          <option value="2">2</option>
+          <option value="1">1</option>
+        </select>
+        <h4 for="comment">Comment:</h4>
+        <textarea name="comment" id="comment" cols="30" rows="5" placeholder="Write your review here..."></textarea>
+        <input type="text" hidden name="date" id="date"/>
+        <button type="submit">Submit Review</button>
+      </form>
+      
+      <div class="product-card__comments">
+        <h3>Customer Reviews</h3>
+        <ul id="commentsList"></ul>
+      </div>
     </main>
 
     <footer></footer>
