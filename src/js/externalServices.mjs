@@ -9,10 +9,20 @@ async function convertToJson(res) {
   }
 }
 
-export async function getProductByCategory(category) {
+export async function getProductByCategory(category, searchTerm = null) {
+  if (searchTerm) {
+    const tents = await fetch(baseURL + `/products/search/tents`).then(convertToJson);
+    const backpacks = await fetch(baseURL + `/products/search/backpacks`).then(convertToJson);
+    const sleepingbags = await fetch(baseURL + `/products/search/sleepingbags`).then(convertToJson);
+    const allProducts = [...tents.Result, ...backpacks.Result, ...sleepingbags.Result];
+    const filtered = allProducts.filter(p => (p.Name).toLowerCase().includes(searchTerm.toLowerCase()));
+    return filtered;
+  }else {
   const response = await fetch(baseURL + `/products/search/${category}`);
   const data = await convertToJson(response);
+  console.log('Products for category', category, ':', data); 
   return data.Result;
+  }
 }
 
 export async function findProductById(id) {
