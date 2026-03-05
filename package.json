@@ -23,5 +23,7 @@
     "vite": "^6.3.3",
     "vitest": "^2.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "jwt-decode": "^4.0.0"
+  }
 }
