@@ -380,6 +380,11 @@ bounce {
 
 .product-grid li {
   list-style-type: none;
+  padding: 8px;
+}
+.product-grid li h2 {
+  font-size: var(--large-font);
+  margin: 0.5em 0;
 }
 
 .checkout-button {
